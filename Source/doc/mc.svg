@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48+devel r"
+   sodipodi:docname="mc.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="628.22137"
+     inkscape:cy="401.55014"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1440"
+     inkscape:window-height="862"
+     inkscape:window-x="-4"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <image
+       y="581.54102"
+       x="80.515274"
+       id="image5600"
+       xlink:href="file:///home/max/devel/uni/IgusMotionEditor/doc/mc_orig.png"
+       height="339"
+       width="716" />
+    <path
+       style="fill:none;stroke:#006600;stroke-width:3.4000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 712.34326,625.00443 20.45559,0 0,-100.23588 16.71628,-16.71628"
+       id="path5603"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#006600;stroke-width:3.4000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 712.05586,602.58998 0,-78.17149 0,-51.61879 20.23792,0 0,27.57716"
+       id="path5605"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#006600;fill-opacity:1;stroke:none"
+       id="path6375"
+       sodipodi:cx="111.72287"
+       sodipodi:cy="700.93011"
+       sodipodi:rx="3.1819806"
+       sodipodi:ry="3.5355339"
+       d="m 114.90485,700.93011 c 0,1.95263 -1.42462,3.53554 -3.18198,3.53554 -1.75736,0 -3.18198,-1.58291 -3.18198,-3.53554 0,-1.95262 1.42462,-3.53553 3.18198,-3.53553 1.75736,0 3.18198,1.58291 3.18198,3.53553 z"
+       transform="matrix(-1.239567,0,0,-1.09375,871.35483,1291.6683)" />
+    <text
+       xml:space="preserve"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="675.71063"
+       y="457.83359"
+       id="text6377"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6379"
+         x="675.71063"
+         y="457.83359"
+         style="font-size:22px">Start button</tspan></text>
+    <path
+       style="fill:none;stroke:#006600;stroke-width:3.4000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 690.13621,602.64227 0,-46.66904 -48.08326,0 0,-82.02439"
+       id="path6416"
+       inkscape:connector-curvature="0" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text6418"
+       y="457.83359"
+       x="509.66904"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:22px"
+         y="457.83359"
+         x="509.66904"
+         id="tspan6420"
+         sodipodi:role="line">Digital Output</tspan></text>
+    <path
+       style="fill:none;stroke:#d00000;stroke-width:3.4000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 690.13621,732.74992 173.94827,0"
+       id="path6422"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path6424"
+       d="m 690.13621,764.74992 173.94827,0"
+       style="fill:none;stroke:#d00000;stroke-width:3.4000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       style="fill:none;stroke:#d00000;stroke-width:3.4000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 690.13621,794.74992 173.94827,0"
+       id="path6426"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="789.13116"
+       y="695.98035"
+       id="text6428"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6430"
+         x="789.13116"
+         y="695.98035"
+         style="font-size:30px">RS-485</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text6432"
+       y="740.68744"
+       x="869.13116"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:30px"
+         y="740.68744"
+         x="869.13116"
+         id="tspan6434"
+         sodipodi:role="line">GND</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="869.13116"
+       y="740.68744"
+       id="text6436"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6438"
+         x="869.13116"
+         y="740.68744"
+         style="font-size:30px">GND</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text6440"
+       y="774.68744"
+       x="869.13116"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:30px"
+         y="774.68744"
+         x="869.13116"
+         id="tspan6442"
+         sodipodi:role="line">B (－)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="869.13116"
+       y="803.39453"
+       id="text6444"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6446"
+         x="869.13116"
+         y="803.39453"
+         style="font-size:30px">A (+)</tspan></text>
+    <path
+       style="fill:none;stroke:#d50000;stroke-width:3.4000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 243.84271,625.14603 -11.5,-11.5 0,-129.5"
+       id="path6448"
+       inkscape:connector-curvature="0" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text6450"
+       y="474.98038"
+       x="181.13116"
+       style="font-size:4px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         style="font-size:30px"
+         y="474.98038"
+         x="181.13116"
+         id="tspan6452"
+         sodipodi:role="line">VCC (5V)</tspan></text>
+  </g>
+</svg>

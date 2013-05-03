@@ -1,0 +1,15 @@
+plot 'data.log' u 1:2 title 'iteration time'
+
+plot 'data.log' u 1:3 w l title 'X1 enc soll', '' u 1:4 w l title 'X1 mot soll', '' u 1:5 w lp title 'X1 vel soll', '' u 1:6 w lp title 'X1 enc ist', '' u 1:7 w lp title 'X1 mot ist', '' u 1:8 w lp title 'X1 tension'
+
+plot 'data.log' u 1:4 w l title 'X1 mot soll', '' u 1:5 w lp title 'X1 vel soll', '' u 1:6 w l title 'X1 enc ist', '' u 1:7 w l title 'X1 mot ist', '' u 1:8 w l title 'X1 tension'
+
+plot 'data.log' u 1:10 w l title 'Z1 mot soll', '' u 1:11 w lp title 'Z1 vel soll', '' u 1:12 w l title 'Z1 enc ist', '' u 1:13 w l title 'Z1 mot ist', '' u 1:($14*100) w lp title 'Z1 tension'
+
+
+#observe joint motions
+plot 'data.log' u 1:3 w l title 'soll', '' u 1:6 w l title 'X1 enc ist', '' u 1:12 w l title 'Z1 enc ist', '' u 1:18 w l title 'X2 enc ist', '' u 1:24 w l title 'Z2 enc ist'
+
+
+#cable tensions
+plot 'data.log' u 1:8 w l title 'X1 tension', '' u 1:14 w l title 'Z1 tension', '' u 1:20 w l title 'X2 tension', '' u 1:26 w l title 'Z2 tension'

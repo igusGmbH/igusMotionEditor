@@ -1,0 +1,315 @@
+QWidget {
+   background-color: white;
+}
+
+QWidget[transparent="true"] {
+   background-color: rgba(0,0,0,0);
+}
+
+/* This style is used for the scroll areas. */
+QWidget[scrollArea="true"] {
+	background-color: #E6E6E6;
+	border: 0px;
+	margin: 0px;
+}
+
+/* Nice Windows-XP-style password character. */
+QLineEdit[echoMode="2"] {
+    lineedit-password-character: 9679;
+}
+
+QLineEdit, QComboBox {
+    background-color: #E6E6E6;
+    selection-color: #FFFFFF;
+    selection-background-color: #FF9900;
+    border: #E6E6E6;
+}
+
+
+QAbstractSpinBox[keyframeSpinBox="true"] {
+    background-color: #E6E6E6;
+    selection-color: #FFFFFF; 
+    selection-background-color: #FF9900;
+    border-style: none;
+    border-width: 1px;
+    border-color: #999999;
+}
+
+QAbstractSpinBox {
+    background-color: #E6E6E6;
+    selection-color: #FFFFFF; 
+    selection-background-color: #FF9900;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #999999;
+}
+
+QAbstractSpinBox::up-button {
+	border-style: none;
+}
+
+QAbstractSpinBox::up-arrow {
+	image: url(images/uparrow.png);
+}
+
+QAbstractSpinBox::up-arrow:hover {
+	image: url(images/uparrow_hover.png);
+}
+
+QAbstractSpinBox::down-button {
+	border-style: none;
+}
+
+QAbstractSpinBox::down-arrow {
+	image: url(images/downarrow.png);
+}
+
+QAbstractSpinBox::down-arrow:hover {
+	image: url(images/downarrow_hover.png);
+}
+
+
+QPushButton, QRadioButton {
+    background-color: #E6E6E6;
+    border-width: 1px;
+    border-color: #999999;
+    border-style: solid;
+    padding: 3px;
+}
+
+QRadioButton::indicator {
+     width: 1px;
+     height: 1px;
+ }
+
+QPushButton[frameDeleteButton="true"] {
+    background-color: #E6E6E6;
+    border-width: 1px;
+    border-color: #999999;
+    border-style: solid;
+    padding: 0px;
+    padding-top: -2px;
+}
+
+QPushButton:hover, QRadioButton:hover {
+   color: white;
+   background-color: #FF9900;
+}
+
+/* Increase the padding, so the text is shifted when the button is pressed. */
+QPushButton:pressed, QPushButton:checked, QRadioButton:checked {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-right: 3px;
+    padding-bottom: 1px;
+    color: white;
+    background-color: #FF9900;
+}
+
+
+QLabel[titleLabel="true"] {
+	font-family: "Helvetica medium";
+	font-size: 20px;
+    font-weight: bold;
+}
+
+QLabel, QAbstractButton {
+	font-family: "Helvetica medium";
+    font-weight: bold;
+}
+
+/* Bold text on status bar looks awful. */
+QStatusBar QLabel {
+   font: normal;
+}
+
+QStatusBar::item {
+    border-width: 1;
+    border-color: darkkhaki;
+    border-style: solid;
+}
+
+/* We reserve 1 pixel space in padding. When we get the focus, we kill 
+   the padding and enlarge the border. This makes the items glow. */
+QLineEdit, QComboBox {
+    padding: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999999;
+}
+
+QComboBox::drop-down {
+    border-left: 1px;
+    border-style: solid;
+    border-color: darkkhaki;
+    background-color: cornsilk;
+    background-color: khaki;
+}
+
+QComboBox::down-arrow {
+     image: url(images/downarrow.png);
+}
+
+QAbstractSpinBox::down-arrow:hover {
+        image: url(images/downarrow_hover.png);
+}
+
+
+QCheckBox {
+    font: normal;
+}
+
+QCheckBox::indicator {
+     width: 16px;
+     height: 16px;
+ }
+
+
+/* As mentioned above, eliminate the padding and increase the border. */
+QLineEdit:focus {
+    border-width: 2px;
+    padding: 0px;
+}
+
+QFrame {
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999999;
+}
+
+
+/* This is a specific style for ornament frames that surround the controls (buttons, inputs) of the editing areas */
+QFrame[buttonGroupOrnament="true"] {
+   background-color: #E6E6E6;
+   border-color: #999999;
+   border-style: solid;
+   border-width: 0;
+   border-bottom-width: 1px;
+   margin-top: 0px;
+   margin-left: 0px;
+   margin-right: 0px;
+   margin-bottom: 0px;
+}
+
+QFrame[buttonGroupOrnament="true"] > QWidget[buttonGroupOrnament="true"] {
+   background-color: #E6E6E6;
+}
+
+QFrame[dropIndicator="true"] {
+   background-color: #FF9900;
+   border: 0px;
+}
+
+
+QScrollArea, QAbstractScrollArea {
+    border: 0px;
+}
+
+
+/* The bgcolor of the GroupBox is explicitely set to transparent, so that ornaments drawn on the background of the
+ * main window are visible. In the keframe editor area there are ornaments like this to group the joint angles of
+ * each limb. */ 
+QGroupBox {
+    background-color: #E6E6E6;
+    font-family: "Helvetica";
+    font-size: 16px;
+    font-weight: bold;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999999;
+    margin-top: 0px;
+ }
+ 
+QGroupBox::title {
+	color: #FF9900;
+	subcontrol-origin: margin;
+    left: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    top: -1px;
+}
+
+
+QProgressBar {
+     border: 1px solid grey;
+}
+
+QProgressBar::chunk {
+     background-color: #05B8CC;
+     width: 1px;
+}
+
+QSlider {
+     background-color: rgba(0,0,0,0);
+     min-width: 10px;
+}
+
+QSlider::groove:horizontal {
+     border: 1px solid grey;
+     border-radius: 2px;
+     height: 2px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+     background-color: #FF9900;
+     margin: 2px 0;
+}
+
+QSlider::handle:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);
+     border: 1px solid #5c5c5c;
+     width: 18px;
+     margin: -3px 0px; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+     border-radius: 2px;
+}
+
+QSlider[interpolator="true"]::handle:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);
+     border: 1px solid #5c5c5c;
+     width: 18px;
+     margin: 0px 0px; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+     border-radius: 2px;
+}
+
+
+/* A QLabel is a QFrame ... */
+QLabel {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+/* A QToolTip is a QLabel ... */
+QToolTip {
+    border: 2px solid darkkhaki;
+    padding: 5px;
+    border-radius: 3px;
+    opacity: 200;
+}
+
+/* Force the dialog's buttons to follow the Windows guidelines. */
+QDialogButtonBox {
+    button-layout: 0;
+}
+
+QListView {
+    background-color: white;
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: #999999;
+    selection-color: #FFFFFF; 
+    selection-background-color: #FF9900;
+    show-decoration-selected: 1;
+}
+
+QListView::item:hover {
+    background-color: #FF9900;
+}
+
+QTextEdit {
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999999;
+    selection-color: #FFFFFF; 
+    selection-background-color: #FF9900;
+}

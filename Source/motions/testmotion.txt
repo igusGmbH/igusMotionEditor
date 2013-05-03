@@ -1,0 +1,5 @@
+speed:100 pause:0 Z1:0 Z2:0 X1:0 X2:0
+speed:100 pause:0 Z1:-1 Z2:-1 X1:-1 X2:-1
+speed:100 pause:0 Z1:0 Z2:0 X1:0 X2:0
+speed:100 pause:0 Z1:1 Z2:1 X1:1 X2:1
+speed:100 pause:0 Z1:0 Z2:0 X1:0 X2:0
