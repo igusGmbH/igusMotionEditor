@@ -108,6 +108,8 @@ bool JointConfiguration::loadFromSettings(QSettings* settings)
         info.joystick_axis = settings->value("joystick_axis", -1).toInt();
         info.joystick_invert = settings->value("joystick_invert", 0).toInt();
         info.invert = settings->value("invert", 0).toInt();
+        info.max_current = settings->value("max_current", 50).toInt();
+        info.hold_current = settings->value("hold_current", 20).toInt();
 
         settings->endGroup();
 

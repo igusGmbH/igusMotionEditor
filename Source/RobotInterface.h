@@ -49,6 +49,7 @@ private:
     static const qint64 BUFFER_SIZE = 64; // The size of the receive buffer.
 
 	ComplianceMode complianceMode;
+    ComplianceMode requestedComplianceMode;
 
     struct MotorData
     {
@@ -97,6 +98,8 @@ private:
     LARGE_INTEGER tick;
     QFile logfile;
     QTextStream log;
+
+    int m_noFeedbackCounter;
 public:
 
 	RobotInterface();
@@ -144,6 +147,7 @@ private:
 
     void flashDone(bool success);
 
+    void handle_checkComplianceMode();
     void handle_confirmConnection();
     void handle_robotReset();
     void handle_checkInitialization();
@@ -162,6 +166,8 @@ private:
 
     bool extDisable();
     bool extEnable();
+
+    bool extSendConfig(int num_frames);
 };
 
 #endif /* ROBOTINTERFACE_H_ */

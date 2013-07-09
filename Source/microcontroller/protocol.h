@@ -96,7 +96,7 @@ struct Feedback
 {
 	uint8_t num_axes;
 	uint8_t flags;
-	int16_t positions[NUM_AXES];
+    int16_t positions[NUM_AXES]; // 0x7FFF = read error
 } __attribute__((packed));
 
 enum PlayFlags

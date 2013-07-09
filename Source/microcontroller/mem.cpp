@@ -27,8 +27,8 @@ void mem_init()
 	{
 		eeprom_read_block(&mem_config, &g_config_memory, sizeof(proto::Config));
 
-		// Validity check
-		if(mem_config.active_axes == 0xFFFF || mem_config.num_keyframes >= proto::MAX_KEYFRAMES)
+		// Validity check (empty EEPROM is 0xFFFF)
+		if(mem_config.active_axes > 100 || mem_config.num_keyframes >= proto::MAX_KEYFRAMES)
 		{
 			invalid = true;
 

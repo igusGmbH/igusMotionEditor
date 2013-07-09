@@ -441,7 +441,7 @@ int16_t motion_feedback(uint8_t motor_index)
 		if(nt_encoderPosition(motor_index+1, &ret))
 			return ret;
 		else
-			return 0;
+			return 0x7FFF;
 	}
 }
 

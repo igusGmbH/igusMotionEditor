@@ -24,6 +24,10 @@ struct JointInfo
     double enc_to_rad;
     double mot_to_rad;
 
+    // nominal current setting
+    double max_current;
+    double hold_current;
+
     // axis length (distance to next joint) in m
     // may be negative if omitted.
     double length;

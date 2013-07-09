@@ -5,6 +5,7 @@
 #define VIEWJOINT_H
 
 #include <QGLViewer/manipulatedFrame.h>
+#include <GL/glu.h>
 
 #include "JointConfiguration.h"
 

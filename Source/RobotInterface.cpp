@@ -71,7 +71,7 @@ RobotInterface::RobotInterface()
 	doInitialize = false;
 	doCheckInitialization = true;
 
-    complianceMode = noCompliance;
+    requestedComplianceMode = complianceMode = noCompliance;
     m_isExtendedMode = false;
     m_isPlaying = false;
 
@@ -85,6 +85,8 @@ RobotInterface::RobotInterface()
 
 	encoderPosition = 0;
     motorPosition = 0;
+
+    m_noFeedbackCounter = 0;
 
     // Execute step() function as often as possible
     QTimer* timer = new QTimer(this);
@@ -143,105 +145,10 @@ void RobotInterface::setComplianceMode(int cm)
 		return;
     }
 
-    if(cm == complianceMode)
+    if(cm == requestedComplianceMode)
         return;
 
-    // We need to exit extended mode in order to talk to the motor controllers.
-    if(!extDisable())
-        return;
-
-    // Timeout on compliance change
-    QTimer timer;
-    timer.setInterval(2000);
-    timer.start();
-
-    if(cm == hardwareCompliance)
-    {
-        while(1)
-        {
-            bool isHardwareCompliant = true;
-
-            if(!timer.isActive())
-            {
-                message("<font color=\"red\">Failed to change to hardware compliance mode.</font>");
-                cm = complianceMode;
-                break;
-            }
-
-            QHash<QString, MotorData>::iterator it;
-            for(it = m_motors.begin(); it != m_motors.end(); ++it)
-            {
-                MotorData* m = &it.value();
-
-                if(m->isHWCompliant)
-                    continue;
-
-                int a = m->joint.address;
-
-                if(txrx(QString("#%1r0\r").arg(a)).endsWith(QString("%1r0").arg(a))
-                        && txrx(QString("#%1i0\r").arg(a)).endsWith(QString("%1i0").arg(a)))
-                {
-                    m->isHWCompliant = true;
-                }
-                else
-                    isHardwareCompliant = false;
-            }
-
-            if(isHardwareCompliant)
-            {
-                emit message("<font color=\"green\">The robot is in hardware compliance mode.</font>");
-
-                break;
-            }
-        }
-    }
-
-    else if(cm == noCompliance)
-    {
-        while(1)
-        {
-            bool stiff = true;
-
-            if(!timer.isActive())
-            {
-                message("<font color=\"red\">Failed to change to hardware compliance mode.</font>");
-                cm = complianceMode;
-                break;
-            }
-
-            QHash<QString, MotorData>::iterator it;
-            for(it = m_motors.begin(); it != m_motors.end(); ++it)
-            {
-                MotorData* m = &it.value();
-
-                if(!m->isHWCompliant)
-                    continue;
-
-                int a = m->joint.address;
-
-                if(txrx(QString("#%1r20\r").arg(a)).endsWith(QString("%1r20").arg(a))
-                        && txrx(QString("#%1i50\r").arg(a)).endsWith(QString("%1i50").arg(a)))
-                {
-                    m->isHWCompliant = false;
-                }
-                else
-                    stiff = false;
-            }
-
-            if (stiff)
-            {
-                emit message("<font color=\"green\">The Robot is stiff.</font>");
-                txJointAngles = rxJointAngles;
-                break;
-            }
-        }
-    }
-
-    // Enable extended mode again
-    extEnable();
-
-    complianceMode = (ComplianceMode)cm;
-    emit complianceChanged(cm);
+    requestedComplianceMode = (ComplianceMode)cm;
 }
 
 /*
@@ -462,44 +369,8 @@ void RobotInterface::transferKeyframes(const KeyframePlayerItem *head, int cmd)
 
     // Everything prepared, begin flash process
 
-    // Find the number of axes
-    int num_axes = 0;
-    foreach(const MotorData& m, m_motors.values())
+    if(!extSendConfig(frames.length()))
     {
-        if(m.joint.address > num_axes)
-            num_axes = m.joint.address;
-    }
-
-    if(num_axes > proto::NUM_AXES)
-    {
-        emit message("Number of joints is too big for microcontroller");
-        emit keyframeTransferFinished(false);
-        return;
-    }
-
-    if(frames.length() > proto::MAX_KEYFRAMES)
-    {
-        emit message("Too many keyframes for microcontroller");
-        emit keyframeTransferFinished(false);
-        return;
-    }
-
-    proto::Packet<proto::CMD_CONFIG, proto::Config> configPacket;
-    configPacket.payload.active_axes = num_axes;
-    configPacket.payload.num_keyframes = frames.length(); // TODO: error message if too large
-    configPacket.payload.lookahead = m_lookahead;
-
-    foreach(const MotorData& m, m_motors.values())
-    {
-        configPacket.payload.enc_to_mot[m.joint.address-1] = 256.0 * m.joint.enc_to_rad / m.joint.mot_to_rad;
-        log << "enc_to_mot for " << m.joint.name << ": " << configPacket.payload.enc_to_mot[m.joint.address-1];
-    }
-
-    configPacket.updateChecksum();
-
-    if(!extChat(configPacket, proto::SimplePacket<proto::CMD_CONFIG>()))
-    {
-        emit message("Could not write configuration");
         emit keyframeTransferFinished(false);
         return;
     }
@@ -553,6 +424,44 @@ void RobotInterface::transferKeyframes(const KeyframePlayerItem *head, int cmd)
     }
 
     emit keyframeTransferFinished(true);
+}
+
+bool RobotInterface::extSendConfig(int num_frames)
+{
+    // Find the number of axes
+    int num_axes = 0;
+    foreach(const MotorData& m, m_motors.values())
+    {
+        if(m.joint.address > num_axes)
+            num_axes = m.joint.address;
+    }
+
+    if(num_axes > proto::NUM_AXES)
+    {
+        emit message("Number of joints is too big for microcontroller");
+        return false;
+    }
+
+    proto::Packet<proto::CMD_CONFIG, proto::Config> configPacket;
+    configPacket.payload.active_axes = num_axes;
+    configPacket.payload.num_keyframes = num_frames; // TODO: error message if too large
+    configPacket.payload.lookahead = m_lookahead;
+
+    foreach(const MotorData& m, m_motors.values())
+    {
+        configPacket.payload.enc_to_mot[m.joint.address-1] = 256.0 * m.joint.enc_to_rad / m.joint.mot_to_rad;
+        log << "enc_to_mot for " << m.joint.name << ": " << configPacket.payload.enc_to_mot[m.joint.address-1];
+    }
+
+    configPacket.updateChecksum();
+
+    if(!extChat(configPacket, proto::SimplePacket<proto::CMD_CONFIG>()))
+    {
+        emit message("Could not write configuration");
+        return false;
+    }
+
+    return true;
 }
 
 void RobotInterface::setJointConfig(const JointInfo::ListPtr &config)
@@ -736,6 +645,9 @@ bool RobotInterface::extCommand(const Cmd& cmd, Answer* answer)
             return false;
         }
 
+        for(size_t i = 0; i < ret; ++i)
+            log << ' ' << QString::number(((uint8_t*)readptr)[i], 16).rightJustified(2, '0');
+
         remsize -= ret;
         readptr += ret;
 
@@ -762,7 +674,7 @@ bool RobotInterface::extCommand(const Cmd& cmd, Answer* answer)
     }
 
     memcpy(answer, buf, sizeof(Answer));
-
+    log << "corrected:";
     for(size_t i = 0; i < sizeof(Answer); ++i)
         log << ' ' << QString::number(((uint8_t*)answer)[i], 16).rightJustified(2, '0');
 
@@ -967,7 +879,7 @@ void RobotInterface::handle_initialize()
         emit robotInitialized();
         emit message("Initialization complete. ROBOT is ready for your command.");
 
-        if(extEnable())
+        if(extEnable() && extSendConfig(0))
         {
             m_isExtendedMode = true;
             m_isPlaying = false;
@@ -984,16 +896,19 @@ void RobotInterface::handle_extendedMode()
 
     proto::Packet<proto::CMD_FEEDBACK, proto::Feedback> feedback;
 
-    if(m_isPlaying)
+    if(m_isPlaying || complianceMode == hardwareCompliance)
     {
         // Request feedback without giving a motion command
         if(!extCommand(proto::SimplePacket<proto::CMD_FEEDBACK>(), &feedback))
         {
             qDebug() << "no playback feedback";
+            m_isExtendedMode = false;
             return;
         }
+        else
+            m_noFeedbackCounter = 0;
 
-        if(m_stopPlaying)
+        if(m_isPlaying && m_stopPlaying)
         {
             // Send stop packets until FF_PLAYING flag in feedback vanishes
             qDebug() << "Sending stop command:" <<
@@ -1024,7 +939,7 @@ void RobotInterface::handle_extendedMode()
             int a = m.joint.address;
             double sgn = m.joint.invert ? -1 : 1;
             motion.payload.ticks[a-1] = qRound((sgn * txJointAngles[it.key()] + m.joint.offset) / m.joint.enc_to_rad) + proto::NT_POSITION_BIAS;
-            motion.payload.velocity[a-1] = qMax(1, qAbs(qRound((txJointVelocities[it.key()] + m.joint.offset) / m.joint.mot_to_rad)));
+            motion.payload.velocity[a-1] = qMax(1, qAbs(qRound((txJointVelocities[it.key()]) / m.joint.mot_to_rad)));
             if(a > motion.payload.num_axes)
                 motion.payload.num_axes = a;
         }
@@ -1034,7 +949,7 @@ void RobotInterface::handle_extendedMode()
 
         if(!extCommand(motion, &feedback))
         {
-            disconnectRobot();
+            //disconnectRobot();
             m_isExtendedMode = false;
             return;
         }
@@ -1044,12 +959,20 @@ void RobotInterface::handle_extendedMode()
     {
         const QString& key = m.joint.name;
         double sgn = m.joint.invert ? -1 : 1;
-        rxJointAngles[key] = sgn * (feedback.payload.positions[m.joint.address-1] * m.joint.enc_to_rad - m.joint.offset);
+        int ticks = feedback.payload.positions[m.joint.address-1];
+
+        if(ticks == 0x7FFF)
+            continue;
+
+        rxJointAngles[key] = sgn * (ticks * m.joint.enc_to_rad - m.joint.offset);
 
         rxJointVelocities[key] = qAbs(rxJointAngles[key] - lastRxJointAngles[key]) / timePassed;
     }
 
     lastRxJointAngles = rxJointAngles;
+
+    if(complianceMode == hardwareCompliance)
+        txJointAngles = rxJointAngles;
 
     if(m_isPlaying && !(feedback.payload.flags & proto::FF_PLAYING))
     {
@@ -1071,6 +994,119 @@ void RobotInterface::handle_extendedMode()
     // Broadcast the received joint angles and velocities to any receivers.
     emit motionOut(rxJointAngles, rxJointVelocities);
 }
+
+void RobotInterface::handle_checkComplianceMode()
+{
+    if(complianceMode == requestedComplianceMode)
+        return;
+
+    if(requestedComplianceMode == noCompliance)
+    {
+        // Send out an initial command packet before switching
+        txJointAngles = rxJointAngles;
+        ComplianceMode lastComp = complianceMode;
+        complianceMode = noCompliance;
+        handle_extendedMode();
+        complianceMode = lastComp;
+    }
+
+    // We need to exit extended mode in order to talk to the motor controllers.
+    if(!extDisable())
+        return;
+
+    // Timeout on compliance change
+    QTimer timer;
+    timer.setInterval(2000);
+    timer.start();
+
+    if(requestedComplianceMode == hardwareCompliance)
+    {
+        while(1)
+        {
+            bool isHardwareCompliant = true;
+
+            if(!timer.isActive())
+            {
+                message("<font color=\"red\">Failed to change to hardware compliance mode.</font>");
+                requestedComplianceMode = complianceMode;
+                break;
+            }
+
+            QHash<QString, MotorData>::iterator it;
+            for(it = m_motors.begin(); it != m_motors.end(); ++it)
+            {
+                MotorData* m = &it.value();
+
+                if(m->isHWCompliant)
+                    continue;
+
+                int a = m->joint.address;
+
+                if(txrx(QString("#%1r0\r").arg(a)).endsWith(QString("%1r0").arg(a))
+                        && txrx(QString("#%1i0\r").arg(a)).endsWith(QString("%1i0").arg(a)))
+                {
+                    m->isHWCompliant = true;
+                }
+                else
+                    isHardwareCompliant = false;
+            }
+
+            if(isHardwareCompliant)
+            {
+                emit message("<font color=\"green\">The robot is in hardware compliance mode.</font>");
+
+                break;
+            }
+        }
+    }
+
+    else if(requestedComplianceMode == noCompliance)
+    {
+        while(1)
+        {
+            bool stiff = true;
+
+            if(!timer.isActive())
+            {
+                message("<font color=\"red\">Failed to change to hardware compliance mode.</font>");
+                requestedComplianceMode = complianceMode;
+                break;
+            }
+
+            QHash<QString, MotorData>::iterator it;
+            for(it = m_motors.begin(); it != m_motors.end(); ++it)
+            {
+                MotorData* m = &it.value();
+
+                if(!m->isHWCompliant)
+                    continue;
+
+                int a = m->joint.address;
+
+                if(txrx(QString("#%1r%2\r").arg(a).arg(m->joint.hold_current)).endsWith(QString("%1r%2").arg(a).arg(m->joint.hold_current))
+                        && txrx(QString("#%1i%2\r").arg(a).arg(m->joint.max_current)).endsWith(QString("%1i%2").arg(a).arg(m->joint.max_current)))
+                {
+                    m->isHWCompliant = false;
+                }
+                else
+                    stiff = false;
+            }
+
+            if (stiff)
+            {
+                emit message("<font color=\"green\">The Robot is stiff.</font>");
+                break;
+            }
+        }
+    }
+
+    // Enable extended mode again
+    extEnable();
+
+    complianceMode = requestedComplianceMode;
+    emit complianceChanged(complianceMode);
+}
+
 
 /*
  * The step method is the main iteration of the robot interface. With every iteration the interface tries to
@@ -1121,6 +1157,7 @@ void RobotInterface::step()
     // Handle extended mode communication (i.e. communication with µC)
     else if(m_isExtendedMode)
     {
+        handle_checkComplianceMode();
         handle_extendedMode();
     }
 }

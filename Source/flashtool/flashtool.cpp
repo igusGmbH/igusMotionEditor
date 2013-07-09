@@ -66,9 +66,11 @@ void FlashTool::updatePorts()
             serial.close();
         }
     }
+
+    ui->progPortBox->addItem("usb (e.g. AVRISP mkII)", "usb");
 }
 
-bool FlashTool::winEvent(MSG *message, long *result)
+bool FlashTool::winEvent(MSG *message, long *)
 {
     //qDebug() << message;
     if(message->message == WM_DEVICECHANGE)
@@ -82,7 +84,7 @@ void FlashTool::flashBootloader()
     QStringList args;
     args
          << "/K" << "microcontroller\\avrdude.exe"
-         << "-c" << ui->progTypeEdit->text()
+         << "-c" << ui->progTypeBox->currentText()
          << "-p" << "atmega2560"
          << "-P" << ui->progPortBox->itemData(ui->progPortBox->currentIndex()).toString()
          << "-U" << "lfuse:w:0xCE:m"

@@ -156,9 +156,11 @@ static bool readRegister(uint8_t id, char reg, int16_t* ret)
 		return false;
 
 	char* endptr;
-	*ret = strtol(answer_buf + 3, &endptr, 10);
+	int16_t tmp = strtol(answer_buf + 3, &endptr, 10);
 	if(*endptr != '\0')
 		return false;
+
+	*ret = tmp;
 
 	return true;
 }
