@@ -1,5 +1,5 @@
-Description of the IME Software v2369 (igus® motion editor)
-Beschreibung der IME Software v2369 (igus® motion editor)
+Description of the IME Software v2397 (igus® motion editor)
+Beschreibung der IME Software v2397 (igus® motion editor)
 State 14.05.2013 Stand 14.05.2013
 
 igus® GmbH in Cologne started developing a joint construction kit for robots in 2009. The basic idea
@@ -28,8 +28,10 @@ Bewegungsprogramme erstellt und gespeichert werden können.
 
 Starting April 2013, igus® will make this software available as Open Source software under the BSD
 license (http://de.wikipedia.org/wiki/BSD-Lizenz).
+
 igus® stellt diese Software ab April 2013 als Open Source Programm unter der BSD Lizenz
 (http://de.wikipedia.org/wiki/BSD-Lizenz) zur Verfügung.
+
 We would like to remain in contact with our users to continue updating the IME so that new applications
 can be harnessed and the package is broadened in total. We expressly welcome any form of feedback,
 and will also gladly respond to questions. I am personally available as a product manager for this
@@ -64,13 +66,13 @@ Java Datei für Nanotec Steuerungen
 
 
 Basic data:
-Version V2369
+Version v2397
 24 MB storage space
 127 keyframes maximum per sequence
 8 axis maximum per sequence
 
 Basisdaten:
-Version v2369
+Version v2397
 24 MB Speicherplatz
 127 keyframes maximal pro Ablauf
 8 Achsen maximal pro Ablauf
